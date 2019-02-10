@@ -13,7 +13,7 @@ app.use(express.static(__dirname));
 
 app.use(
   require("express-session")({
-    secret: "I'm nikhil",
+    secret: "I'm Nithin",
     resave: false,
     saveUninitialized: false
   })
@@ -151,13 +151,12 @@ app.get("/updates", function(req, res) {
 //     }
 //   });
 // });
-app.get("/likes/:lid",isLoggedIn, function(req, res) {
+app.get("/likes/:lid", isLoggedIn, function(req, res) {
   var q = "select user_id from user where email=?";
   connection.query(q, [req.user.username], function(err, results) {
     if (err) {
       throw err;
-    }
-    else {
+    } else {
       console.log(results[0]);
       var likes = {
         user_id: results[0].user_id,
@@ -203,7 +202,8 @@ app.get("/events/:e_id", function(req, res) {
           connection.query(q2, [results[0].event_id], function(err, resul) {
             if (err) throw err;
             else {
-              var q3 = "select * from sponsors eh,sponsored_by o where eh.sponsor_id=o.sponsor_id and o.event_id=?";
+              var q3 =
+                "select * from sponsors eh,sponsored_by o where eh.sponsor_id=o.sponsor_id and o.event_id=?";
               connection.query(q3, [results[0].event_id], function(err, resu) {
                 if (err) throw err;
                 else {
@@ -255,7 +255,6 @@ app.post("/info", function(req, res) {
   connection.query(q, person, function(err, results, fields) {
     if (err) throw err;
     else {
-      
       // console.log(results);
       res.redirect("/profile");
     }
@@ -314,7 +313,7 @@ app.post("/updatebio", function(req, res) {
         if (err) throw err;
         else {
           // console.log(results);
-          res.redirect("/profile/"+req.user.username);
+          res.redirect("/profile/" + req.user.username);
         }
       });
     }
